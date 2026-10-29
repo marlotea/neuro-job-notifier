@@ -59,10 +59,15 @@ def main(argv: list[str] | None = None) -> int:
                         help="mark every current job as seen without emailing")
     parser.add_argument("--state", type=Path, default=state_mod.DEFAULT_PATH,
                         help="path to seen.json (default: state/seen.json)")
+    parser.add_argument("--test-email", action="store_true",
+                        help="send one sample email to EMAIL_TO to check your settings, then stop")
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
     _load_dotenv()
+
+    if args.test_email:
+        return _send_test_email()
 
     state = state_mod.load(args.state)
     matcher = filters.KeywordMatcher.from_yaml(KEYWORDS_PATH)
@@ -120,7 +125,9 @@ def main(argv: list[str] | None = None) -> int:
                     len(new_jobs), MAX_EMAILS_PER_RUN)
         new_jobs = new_jobs[:MAX_EMAILS_PER_RUN]
 
-    sent = _send_all(new_jobs, state, args.dry_run, errors)
+    # Work out why each job matched, so the email can say so.
+    reasons = {j.id: filters.relevance(j, matcher, watchlist) for j in new_jobs}
+    sent = _send_all(new_jobs, reasons, state, args.dry_run, errors)
 
     if args.dry_run:
         log.info("dry run: seen.json not updated")
@@ -133,12 +140,13 @@ def main(argv: list[str] | None = None) -> int:
     return 1 if errors else 0
 
 
-def _send_all(jobs: list[Job], state: state_mod.State, dry_run: bool, errors: list[str]) -> int:
+def _send_all(jobs: list[Job], reasons: dict[str, filters.Relevance | None],
+              state: state_mod.State, dry_run: bool, errors: list[str]) -> int:
     if not jobs:
         return 0
     if dry_run:
         for job in jobs:
-            subject, body = format_email(job)
+            subject, body, _html = format_email(job, reasons.get(job.id))
             print("=" * 70)
             print(f"Subject: {subject}\n")
             print(body)
@@ -154,7 +162,7 @@ def _send_all(jobs: list[Job], state: state_mod.State, dry_run: bool, errors: li
     sent = 0
     for job in jobs:
         try:
-            emailer.send(job)
+            emailer.send(job, reasons.get(job.id))
         except Exception as exc:
             # The job is not marked as seen, so it gets retried next run.
             log.error("failed to email %s: %s", job.id, exc)
@@ -164,6 +172,31 @@ def _send_all(jobs: list[Job], state: state_mod.State, dry_run: bool, errors: li
         state.seen_ids.update(job_keys(job))
         sent += 1
     return sent
+
+
+SAMPLE_JOB = Job(
+    id="sample:1",
+    company="Neuralink",
+    title="Software Engineer Intern, BCI Applications",
+    url="https://boards.greenhouse.io/neuralink/jobs/6594422003",
+    location="Austin, Texas, United States; South San Francisco, California, United States",
+    source="greenhouse",
+    posted_at=None,
+    description=None,
+    from_watchlist=True,
+    kind="internship",
+)
+
+
+def _send_test_email() -> int:
+    try:
+        emailer = Emailer()
+        emailer.send(SAMPLE_JOB, filters.Relevance("Test email: your settings work"))
+    except Exception as exc:
+        log.error("test email failed: %s", exc)
+        return 1
+    print(f"Sent a test email to {emailer.to}")
+    return 0
 
 
 def _print_summary(source_names, fetched, kept, seeded, new_count, sent, errors, dry_run):

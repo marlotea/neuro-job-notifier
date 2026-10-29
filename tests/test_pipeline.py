@@ -30,7 +30,7 @@ class PipelineTests(unittest.TestCase):
         self.env = mock.patch.dict("os.environ", {"SMTP_USER": "a", "SMTP_PASSWORD": "b", "EMAIL_TO": "c"})
         self.env.start()
         self.sent: list[str] = []
-        self.send = mock.patch("notifier.emailer.Emailer.send", side_effect=lambda job: self.sent.append(job.id))
+        self.send = mock.patch("notifier.emailer.Emailer.send", side_effect=lambda job, why=None: self.sent.append(job.id))
         self.send.start()
         self.dotenv = mock.patch.object(main_mod, "_load_dotenv")
         self.dotenv.start()
