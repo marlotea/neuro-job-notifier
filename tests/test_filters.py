@@ -76,8 +76,9 @@ class RoleTypeTests(unittest.TestCase):
     def test_year_in_title_must_match(self):
         self.assertTrue(role_type_ok(make_job(title="Software Engineer Intern - Summer 2027")))
         self.assertFalse(role_type_ok(make_job(title="Software Engineer Intern - Summer 2026")))
-        # New grad roles must start in 2028 or later.
-        self.assertFalse(role_type_ok(make_job(title="New Grad Software Engineer 2027")))
+        # New grad roles must start in 2027 or later.
+        self.assertFalse(role_type_ok(make_job(title="New Grad Software Engineer 2026")))
+        self.assertTrue(role_type_ok(make_job(title="New Grad Software Engineer 2027")))
         self.assertTrue(role_type_ok(make_job(title="New Grad Software Engineer 2028")))
 
     def test_simplify_titles_dont_need_intern_keyword(self):

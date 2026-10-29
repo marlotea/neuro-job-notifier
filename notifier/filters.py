@@ -133,14 +133,14 @@ def role_type_ok(job: Job) -> bool:
 
 def _year_ok(job: Job) -> bool:
     """If the title names a year, check it matches what we want:
-    internships for 2027, new grad roles starting 2028 or later."""
+    internships for 2027, new grad roles starting 2027 or later."""
     years = {int(y) for y in _YEAR_RE.findall(job.title)}
     if not years:
         return True  # no year mentioned, so we can't rule it out
     kind = job.kind or ("internship" if _INTERN_RE.search(job.title) else "new_grad")
     if kind == "internship":
         return 2027 in years
-    return max(years) >= 2028
+    return max(years) >= 2027
 
 
 # ---------------------------------------------------------------------------

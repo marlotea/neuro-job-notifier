@@ -4,7 +4,7 @@
 
 A job notifier that runs twice a day on GitHub Actions. It looks for new
 neuroscience-related ML and software roles: 2027 internships and co-ops, and
-new grad roles starting in 2028 or later, in Canada, the US, or remote. It
+new grad roles starting in 2027 or later, in Canada, the US, or remote. It
 sends one email per new job, with a link to the posting. If nothing new turns
 up, it sends nothing.
 
@@ -37,7 +37,7 @@ Sources so far:
    titles. Titles from job boards must say intern, co-op, new grad, entry
    level, etc. Simplify titles don't have to, because those repos only list
    early-career roles. If a title names a year, internships must say 2027 and
-   new grad roles must say 2028 or later.
+   new grad roles must say 2027 or later.
 3. **Relevance:** the title or description must match a term in
    `config/keywords.yaml`.
 
