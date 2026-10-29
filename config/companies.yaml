@@ -1,0 +1,206 @@
+# Company watchlist.
+#
+#   name:         how the company appears in emails
+#   ats:          greenhouse | lever | ashby | unknown
+#   slug:         the company's ID on that job board (only for greenhouse/lever/ashby)
+#   careers_url:  the human-readable careers page
+#   big_company:  false = every early-career role here is relevant
+#                 true  = a job must also match a keyword in config/keywords.yaml
+#   aliases:      other names the company appears under (e.g. on Simplify).
+#                 Names must match exactly (ignoring case, punctuation, "Inc.").
+#
+# Companies with ats: unknown aren't fetched directly. They still matter: if one
+# of them shows up on Simplify, the big_company rule above applies to that job.
+#
+# Every greenhouse/lever/ashby slug below was confirmed on 2026-10-29 to return
+# that company's real job board.
+
+# --- BCI / neurotech -------------------------------------------------------
+
+- name: Neuralink
+  ats: greenhouse
+  slug: neuralink
+  careers_url: https://neuralink.com/careers/
+  big_company: false
+
+- name: Synchron
+  ats: unknown  # ADP Workforce Now
+  careers_url: https://synchron.com/careers
+  big_company: false
+
+- name: Precision Neuroscience
+  ats: unknown  # Kula (careers.kula.ai/precision-neuroscience)
+  careers_url: https://www.precisionneuro.io/careers
+  big_company: false
+
+- name: Paradromics
+  ats: unknown  # JazzHR (paradromicsinc.applytojob.com)
+  careers_url: https://paradromics.com/careers/
+  big_company: false
+
+- name: Blackrock Neurotech
+  ats: unknown  # Rippling (ats.rippling.com/blackrockneurotech)
+  careers_url: https://blackrockneurotech.com/careers/
+  big_company: false
+
+- name: Science Corp
+  ats: unknown  # Science's own job site (jobs.science.xyz)
+  careers_url: https://science.xyz/careers/
+  big_company: false
+  aliases: [Science Corporation]
+
+- name: Motif Neurotech
+  ats: greenhouse
+  slug: motifneurotech  # board exists but had 0 jobs on 2026-10-29 ("not hiring")
+  careers_url: https://motifneuro.tech/careers
+  big_company: false
+
+- name: Axoft
+  ats: unknown  # Polymer (jobs.polymer.co/axoft)
+  careers_url: https://axoft.us/
+  big_company: false
+
+- name: Phantom Neuro
+  ats: unknown  # no careers page found
+  careers_url: https://phantomneuro.com/
+  big_company: false
+
+- name: Neurable
+  ats: unknown  # JazzHR (neurable.applytojob.com)
+  careers_url: https://www.neurable.com/careers
+  big_company: false
+
+- name: Kernel
+  ats: unknown  # no careers page or listings found
+  careers_url: https://kernel.com/
+  big_company: false
+
+- name: Cognixion
+  ats: unknown  # BambooHR
+  careers_url: https://www.cognixion.com/careers
+  big_company: false
+
+- name: InteraXon
+  ats: unknown  # old Lever board (jobs.lever.co/interaxon) is gone
+  careers_url: https://choosemuse.com/pages/careers
+  big_company: false
+  aliases: [Muse by Interaxon]
+
+- name: Ripple Neuro
+  # Their careers page loads Greenhouse board "rippleneurotechventures", but
+  # Greenhouse answers "Job board not found". Check again later.
+  ats: unknown
+  careers_url: https://rippleneuro.com/careers-at-ripple/
+  big_company: false
+
+- name: Intan Technologies
+  ats: unknown  # careers page says "no open positions", no job system
+  careers_url: https://intantech.com/careers.html
+  big_company: false
+
+# --- Neuro-AI labs ---------------------------------------------------------
+
+- name: Metamorphic
+  ats: ashby
+  slug: metamorphic
+  careers_url: https://jobs.ashbyhq.com/metamorphic
+  big_company: false
+
+# Convergent Research runs several nonprofit research groups ("FROs"). E11 Bio
+# and Arbor Neuroscience (the new name for Forest Neurotech) post their jobs on
+# Convergent's Lever board. The same board also has non-neuro groups (ocean
+# carbon, formal methods...), so it's marked big_company to require a keyword.
+- name: Convergent Research
+  ats: lever
+  slug: convergentresearch
+  careers_url: https://www.convergentresearch.org/careers
+  big_company: true
+  aliases: [E11 Bio, Arbor Neuroscience, Forest Neurotech]
+
+# --- Big tech --------------------------------------------------------------
+
+- name: Meta
+  ats: unknown  # metacareers.com (custom)
+  careers_url: https://www.metacareers.com/
+  big_company: true
+  aliases: [Meta Reality Labs, Reality Labs]
+
+- name: Google DeepMind
+  ats: unknown  # Google's own careers site
+  careers_url: https://deepmind.google/careers/
+  big_company: true
+  aliases: [DeepMind]
+
+# --- Institutes ------------------------------------------------------------
+
+- name: Allen Institute
+  ats: unknown  # listings load from a script on the page; job system not identified
+  careers_url: https://alleninstitute.org/careers
+  big_company: false
+
+- name: HHMI Janelia
+  ats: unknown  # Workday (hhmi.wd1.myworkdayjobs.com)
+  careers_url: https://www.hhmi.org/careers/janelia
+  big_company: false
+  aliases: [HHMI, Howard Hughes Medical Institute, Janelia Research Campus]
+
+- name: Simons Foundation
+  ats: unknown  # Workday for staff roles, Interfolio for Flatiron research roles
+  careers_url: https://www.simonsfoundation.org/careers/
+  big_company: true  # most roles are not neuro (astro, math, physics...)
+  aliases: [Flatiron Institute]
+
+- name: Wu Tsai Neurosciences Institute
+  ats: unknown  # Stanford's job site
+  careers_url: https://neuroscience.stanford.edu/get-involved-wu-tsai-neuro/careers
+  big_company: false
+
+- name: Mila
+  ats: unknown  # Workable (apply.workable.com/mila-2)
+  careers_url: https://mila.quebec/en/careers
+  big_company: true  # general AI institute
+
+- name: Vector Institute
+  ats: unknown  # ADP Workforce Now
+  careers_url: https://vectorinstitute.ai/about/careers/
+  big_company: true  # general AI institute
+
+- name: University Health Network
+  ats: unknown  # SmartRecruiters (jobs.smartrecruiters.com/UniversityHealthNetwork)
+  careers_url: https://jobs.smartrecruiters.com/UniversityHealthNetwork
+  big_company: true  # a large hospital network; Krembil is one part of it
+  aliases: [UHN, Krembil Brain Institute, Krembil Research Institute]
+
+- name: Djavad Mowafaghian Centre for Brain Health
+  ats: unknown  # UBC's Workday
+  careers_url: https://www.centreforbrainhealth.ca/careers/
+  big_company: false
+  aliases: [DMCBH, Centre for Brain Health]
+
+# --- Medtech ---------------------------------------------------------------
+
+- name: Medtronic
+  ats: unknown  # Workday
+  careers_url: https://medtronic.wd1.myworkdayjobs.com/MedtronicCareers
+  big_company: true
+
+- name: Boston Scientific
+  ats: unknown  # Eightfold
+  careers_url: https://bostonscientific.eightfold.ai/careers
+  big_company: true
+
+- name: NeuroPace
+  ats: greenhouse
+  slug: neuropace
+  careers_url: https://www.neuropace.com/
+  big_company: false
+
+- name: Neuronetics
+  ats: unknown  # Rippling (ats.rippling.com/careers-neuronetics)
+  careers_url: https://neurostar.com/about-us/careers/
+  big_company: false
+
+- name: Abbott
+  ats: unknown  # Workday
+  careers_url: https://abbott.wd5.myworkdayjobs.com/abbottcareers
+  big_company: true
