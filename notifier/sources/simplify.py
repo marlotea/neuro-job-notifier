@@ -4,14 +4,10 @@ Simplify keeps every listing in a big JSON file inside each repo. We read the
 raw file straight from GitHub (no API key needed).
 """
 
-import logging
 from datetime import datetime, timezone
 
-import requests
-
+from notifier.http import get_json
 from notifier.models import Job
-
-log = logging.getLogger(__name__)
 
 # Confirmed 2026-10-29. Both repos use the "dev" branch, not "main".
 # When Simplify starts a Summer 2028 repo, these URLs will need updating.
@@ -24,19 +20,13 @@ NEW_GRAD_URL = (
     "dev/.github/scripts/listings.json"
 )
 
-# requests applies this timeout to connecting and to each read from the socket,
-# not to the whole download, so the ~13 MB files still have time to arrive.
-TIMEOUT_SECONDS = 15
-
 
 def fetch() -> list[Job]:
     # If either feed fails, we raise and the whole source counts as failed for
     # this run. Returning only half the listings could cause a bad first-run seed.
     jobs = []
     for url, kind in [(INTERNSHIPS_URL, "internship"), (NEW_GRAD_URL, "new_grad")]:
-        response = requests.get(url, timeout=TIMEOUT_SECONDS)
-        response.raise_for_status()
-        listings = response.json()
+        listings = get_json(url)
         jobs.extend(_to_job(item, kind) for item in listings if _keep(item, kind))
     return jobs
 
