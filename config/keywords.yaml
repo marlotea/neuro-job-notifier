@@ -1,0 +1,35 @@
+# A job is relevant if its title or description contains at least one of these
+# terms. Whole words only, any case. Spaces and hyphens are interchangeable, and
+# a plural "s" is allowed ("BCI" also matches "BCIs").
+# A trailing * matches any ending: "neuro*" matches "neurotechnology".
+terms:
+  - neural
+  - neuro
+  - neuro*        # catches neurotechnology, neuroengineering, neuroimaging, neurons...
+  - neuroscience
+  - brain
+  - BCI
+  - brain-computer
+  - EEG
+  - EMG
+  - ECoG
+  - electrophysiology
+  - spike sorting
+  - neural decoding
+  - neuromodulation
+  - neurotech
+  - computational neuroscience
+  - cognitive
+
+# Phrases that should NOT count as a match. Most ML jobs say "neural network",
+# and that has nothing to do with neuroscience. These phrases are removed from
+# the text before matching, so "neural networks for EEG decoding" still matches
+# on "EEG".
+exclude:
+  - neural network
+  - neural net
+  - neural graphics
+  - neural rendering
+  - neural radiance
+  - neural engine
+  - neural architecture search
