@@ -8,6 +8,7 @@ from pathlib import Path
 
 import yaml
 
+from notifier.companies import Watchlist
 from notifier.models import Job
 
 # ---------------------------------------------------------------------------
@@ -193,18 +194,22 @@ class KeywordMatcher:
         return self._terms.search(text) is not None
 
 
-def is_relevant(job: Job, matcher: KeywordMatcher, big_companies: set[str] = frozenset()) -> bool:
-    # Small watchlist companies (neurotech startups etc.) are relevant by default.
-    if job.from_watchlist and job.company not in big_companies:
+def is_relevant(job: Job, matcher: KeywordMatcher, watchlist: Watchlist | None = None) -> bool:
+    # Small watchlist companies (neurotech startups etc.) are relevant by
+    # default: any early-career role there, SWE included, is worth a look.
+    is_big = watchlist is not None and watchlist.is_big(job.company)
+    if job.from_watchlist and not is_big:
         return True
+    # Everyone else (big companies, and Simplify jobs from companies not on
+    # the watchlist) must mention a neuro keyword.
     return matcher.matches(job.title) or matcher.matches(job.description or "")
 
 
 # ---------------------------------------------------------------------------
 
 
-def filter_jobs(jobs: list[Job], matcher: KeywordMatcher, big_companies: set[str] = frozenset()) -> list[Job]:
+def filter_jobs(jobs: list[Job], matcher: KeywordMatcher, watchlist: Watchlist | None = None) -> list[Job]:
     return [
         j for j in jobs
-        if location_ok(j.location) and role_type_ok(j) and is_relevant(j, matcher, big_companies)
+        if location_ok(j.location) and role_type_ok(j) and is_relevant(j, matcher, watchlist)
     ]

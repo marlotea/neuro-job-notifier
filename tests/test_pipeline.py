@@ -24,8 +24,9 @@ class PipelineTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.state_path = Path(self.tmp.name) / "seen.json"
         self.jobs: list[Job] = []
-        self.sources = mock.patch.dict(main_mod.SOURCES, {"fake": lambda: list(self.jobs)}, clear=True)
-        self.sources.start()
+        # Replace the real sources with one fake source we control.
+        self.sources = {"fake": lambda: list(self.jobs)}
+        mock.patch.object(main_mod, "build_sources", lambda companies: self.sources).start()
         self.env = mock.patch.dict("os.environ", {"SMTP_USER": "a", "SMTP_PASSWORD": "b", "EMAIL_TO": "c"})
         self.env.start()
         self.sent: list[str] = []
@@ -85,11 +86,29 @@ class PipelineTests(unittest.TestCase):
     def test_failing_source_does_not_stop_others(self):
         def broken():
             raise RuntimeError("boom")
-        with mock.patch.dict(main_mod.SOURCES, {"broken": broken}):
-            self.run_main()
-            self.jobs = [neuro_job(1)]
-            self.assertEqual(self.run_main(), 1)
+        self.sources["broken"] = broken
+        self.run_main()
+        self.jobs = [neuro_job(1)]
+        self.assertEqual(self.run_main(), 1)
         self.assertEqual(self.sent, ["fake:1"])
+
+    def test_same_job_from_board_and_simplify_is_emailed_once(self):
+        board_job = Job(id="greenhouse:8005762003", company="Neuralink", title="Software Engineer Intern",
+                        url="https://boards.greenhouse.io/neuralink/jobs/8005762003", location="Fremont, CA",
+                        source="greenhouse", posted_at="2026-10-28", description=None,
+                        from_watchlist=True)
+        simplify_job = Job(id="simplify:abc", company="Neuralink", title="Software Engineer Intern",
+                           url="https://boards.greenhouse.io/neuralink/jobs/8005762003?utm_source=Simplify",
+                           location="Fremont, CA", source="simplify", posted_at="2026-10-29",
+                           description=None, from_watchlist=False, kind="internship")
+        self.run_main()  # seed with no jobs
+        # Same run: both copies show up, only one email goes out.
+        self.jobs = [board_job, simplify_job]
+        self.run_main()
+        self.assertEqual(self.sent, ["greenhouse:8005762003"])
+        # A later run where only the Simplify copy is new: still no second email.
+        self.run_main()
+        self.assertEqual(len(self.sent), 1)
 
 
 if __name__ == "__main__":

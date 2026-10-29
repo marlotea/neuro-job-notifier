@@ -1,6 +1,7 @@
 import unittest
 
 from notifier import filters
+from notifier.companies import Company, Watchlist, normalize_name
 from notifier.filters import KeywordMatcher, location_ok, role_type_ok
 from notifier.main import KEYWORDS_PATH
 from notifier.models import Job
@@ -132,7 +133,7 @@ class RelevanceTests(unittest.TestCase):
         self.assertTrue(filters.is_relevant(job, self.matcher))
 
     def test_big_watchlist_company_needs_a_keyword(self):
-        big = {"Meta"}
+        big = Watchlist.from_companies([Company("Meta", "unknown", None, None, big_company=True)])
         plain = make_job(title="Software Engineer Intern", company="Meta", from_watchlist=True)
         self.assertFalse(filters.is_relevant(plain, self.matcher, big))
         neuro = make_job(title="Research Intern", company="Meta", from_watchlist=True,
@@ -142,6 +143,26 @@ class RelevanceTests(unittest.TestCase):
     def test_simplify_job_needs_a_keyword(self):
         job = make_job(title="Software Engineer Intern", source="simplify", kind="internship")
         self.assertFalse(filters.is_relevant(job, self.matcher))
+
+
+class CompanyNameTests(unittest.TestCase):
+    def test_normalize_ignores_case_punctuation_and_suffixes(self):
+        self.assertEqual(normalize_name("Neuralink, Inc."), normalize_name("neuralink"))
+        self.assertEqual(normalize_name("Science Corp."), "science")
+
+    def test_similar_names_are_not_confused(self):
+        watchlist = Watchlist.from_companies([
+            Company("Blackrock Neurotech", "unknown", None, None, big_company=False),
+            Company("Ripple Neuro", "unknown", None, None, big_company=False),
+            Company("Simons Foundation", "unknown", None, None, big_company=True,
+                    aliases=["Flatiron Institute"]),
+        ])
+        self.assertTrue(watchlist.contains("Blackrock Neurotech"))
+        self.assertFalse(watchlist.contains("BlackRock"))  # the investment firm
+        self.assertFalse(watchlist.contains("Ripple"))  # the crypto company
+        self.assertTrue(watchlist.contains("Flatiron Institute"))
+        self.assertFalse(watchlist.contains("Flatiron Health"))
+        self.assertTrue(watchlist.is_big("Flatiron Institute"))
 
 
 if __name__ == "__main__":

@@ -5,14 +5,17 @@ rest -> record what was sent in state/seen.json.
 """
 
 import argparse
+import functools
 import logging
 import sys
+from collections.abc import Callable
 from pathlib import Path
 
-from notifier import filters, state as state_mod
+from notifier import companies as companies_mod, filters, state as state_mod
+from notifier.dedupe import job_keys, remove_duplicates
 from notifier.emailer import Emailer, format_email
 from notifier.models import Job
-from notifier.sources import simplify
+from notifier.sources import ashby, greenhouse, lever, simplify
 
 log = logging.getLogger("notifier")
 
@@ -22,11 +25,30 @@ KEYWORDS_PATH = ROOT / "config" / "keywords.yaml"
 # Safety cap: a bug that makes every job look "new" should not send 500 emails.
 MAX_EMAILS_PER_RUN = 25
 
-# Source name -> function that returns a list of Job objects.
-# The name must match the "{source}:" prefix used in Job IDs.
-SOURCES = {
-    "simplify": simplify.fetch,
+# Job board fetchers, by the "ats" value in companies.yaml.
+FETCHERS = {
+    "greenhouse": greenhouse.fetch,
+    "lever": lever.fetch,
+    "ashby": ashby.fetch,
 }
+
+
+def build_sources(companies: list[companies_mod.Company]) -> dict[str, Callable[[], list[Job]]]:
+    """Map each source name to a function that returns its jobs.
+
+    Each watchlist company's job board is its own source (e.g.
+    "greenhouse/neuralink"), so one broken board doesn't hide the others, and a
+    newly added company gets its own first-run seed.
+    """
+    sources = {}
+    for company in companies:
+        if company.ats in FETCHERS:
+            # functools.partial makes a function that calls fetch(company) later.
+            sources[company.board_key] = functools.partial(FETCHERS[company.ats], company)
+    # Simplify goes last. When a job is on both a company board and Simplify,
+    # the first copy wins, and the board's copy has the description.
+    sources["simplify"] = simplify.fetch
+    return sources
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -44,6 +66,9 @@ def main(argv: list[str] | None = None) -> int:
 
     state = state_mod.load(args.state)
     matcher = filters.KeywordMatcher.from_yaml(KEYWORDS_PATH)
+    companies = companies_mod.load()
+    watchlist = companies_mod.Watchlist.from_companies(companies)
+    sources = build_sources(companies)
 
     fetched: dict[str, int] = {}
     kept: dict[str, int] = {}
@@ -51,7 +76,7 @@ def main(argv: list[str] | None = None) -> int:
     errors: list[str] = []
     new_jobs: list[Job] = []
 
-    for name, fetch in SOURCES.items():
+    for name, fetch in sources.items():
         # One broken source must not stop the others, so catch everything here.
         try:
             jobs = fetch()
@@ -61,13 +86,19 @@ def main(argv: list[str] | None = None) -> int:
             continue
 
         fetched[name] = len(jobs)
-        relevant = filters.filter_jobs(jobs, matcher)
+        # Simplify jobs from a watchlist company (e.g. a Neuralink internship)
+        # get the same treatment as jobs fetched from that company directly.
+        for job in jobs:
+            if not job.from_watchlist and watchlist.contains(job.company):
+                job.from_watchlist = True
+        relevant = filters.filter_jobs(jobs, matcher, watchlist)
         kept[name] = len(relevant)
 
         # First successful run of this source (or --seed): remember everything
         # it has right now, but don't email any of it.
         if args.seed or name not in state.seeded_sources:
-            state.seen_ids.update(j.id for j in relevant)
+            for j in relevant:
+                state.seen_ids.update(job_keys(j))
             state.seeded_sources.add(name)
             seeded[name] = len(relevant)
             log.info("seeded %s: marked %d current jobs as seen, no emails", name, len(relevant))
@@ -76,9 +107,11 @@ def main(argv: list[str] | None = None) -> int:
                     print(f"  [would seed] {j.company}: {j.title} ({j.location})")
             continue
 
-        new_jobs.extend(j for j in relevant if j.id not in state.seen_ids)
+        # A job counts as seen if any of its IDs is in seen.json. That catches
+        # a Simplify listing we already emailed from the company's own board.
+        new_jobs.extend(j for j in relevant if not job_keys(j) & state.seen_ids)
 
-    new_jobs = _dedupe(new_jobs)
+    new_jobs = remove_duplicates(new_jobs)
     # Newest first, so if the cap kicks in, the freshest postings go out first.
     # Jobs with no date sort last.
     new_jobs.sort(key=lambda j: j.posted_at or "", reverse=True)
@@ -94,7 +127,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         state_mod.save(state, args.state)
 
-    _print_summary(fetched, kept, seeded, len(new_jobs), sent, errors, args.dry_run)
+    _print_summary(list(sources), fetched, kept, seeded, len(new_jobs), sent, errors, args.dry_run)
     # A non-zero exit code makes the GitHub Actions run show as failed, so
     # you get notified that something needs a look.
     return 1 if errors else 0
@@ -128,23 +161,15 @@ def _send_all(jobs: list[Job], state: state_mod.State, dry_run: bool, errors: li
             errors.append(f"email {job.id}: {exc}")
             continue
         # Only mark as seen once the email has actually gone out.
-        state.seen_ids.add(job.id)
+        state.seen_ids.update(job_keys(job))
         sent += 1
     return sent
 
 
-def _dedupe(jobs: list[Job]) -> list[Job]:
-    """Drop repeated IDs (e.g. a listing that appears in two feeds)."""
-    unique: dict[str, Job] = {}
-    for job in jobs:
-        unique.setdefault(job.id, job)
-    return list(unique.values())
-
-
-def _print_summary(fetched, kept, seeded, new_count, sent, errors, dry_run):
+def _print_summary(source_names, fetched, kept, seeded, new_count, sent, errors, dry_run):
     print()
     print("Run summary" + (" (dry run)" if dry_run else ""))
-    for name in SOURCES:
+    for name in source_names:
         if name in fetched:
             line = f"  {name}: fetched {fetched[name]}, after filtering {kept[name]}"
             if name in seeded:

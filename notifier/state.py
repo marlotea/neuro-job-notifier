@@ -2,7 +2,7 @@
 
 File format:
     {
-      "seeded_sources": ["simplify"],
+      "seeded_sources": ["greenhouse/neuralink", "simplify"],
       "seen_ids": ["simplify:54c83f6c-...", ...]
     }
 
