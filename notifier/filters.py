@@ -4,6 +4,7 @@ Filters run in this order: location, then role type, then relevance.
 """
 
 import re
+from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
@@ -121,6 +122,12 @@ _SENIOR_RE = re.compile(
 _YEAR_RE = re.compile(r"\b(20\d\d)\b")
 
 
+def role_label(job: Job) -> str:
+    """Human-friendly role type for emails."""
+    kind = job.kind or ("internship" if _INTERN_RE.search(job.title) else "new_grad")
+    return "Internship / co-op" if kind == "internship" else "New grad"
+
+
 def role_type_ok(job: Job) -> bool:
     title = job.title
     if _SENIOR_RE.search(title):
@@ -184,25 +191,55 @@ class KeywordMatcher:
         data = yaml.safe_load(path.read_text()) or {}
         return cls(data.get("terms", []), data.get("exclude", []))
 
-    def matches(self, text: str) -> bool:
+    def find(self, text: str | None) -> re.Match | None:
+        """Return the first keyword match in text, or None."""
         if not text or self._terms is None:
-            return False
+            return None
         # Blank out phrases like "neural network" first, so they can't count
-        # as a match. Other terms in the same text still can.
+        # as a match. Other terms in the same text still can. We replace them
+        # with the same number of spaces so match positions still line up
+        # with the original text.
         if self._exclude is not None:
-            text = self._exclude.sub(" ", text)
-        return self._terms.search(text) is not None
+            text = self._exclude.sub(lambda m: " " * len(m.group(0)), text)
+        return self._terms.search(text)
+
+    def matches(self, text: str | None) -> bool:
+        return self.find(text) is not None
 
 
-def is_relevant(job: Job, matcher: KeywordMatcher, watchlist: Watchlist | None = None) -> bool:
+@dataclass
+class Relevance:
+    """Why a job passed the relevance filter. Shown in the email so you can
+    quickly judge borderline matches."""
+    reason: str  # e.g. 'Keyword "EEG" in description'
+    # For description matches: the text around the keyword, split into
+    # (before, keyword, after) so the email can highlight the keyword.
+    context: tuple[str, str, str] | None = None
+
+
+def relevance(job: Job, matcher: KeywordMatcher, watchlist: Watchlist | None = None) -> Relevance | None:
+    """Return why the job is relevant, or None if it isn't."""
     # Small watchlist companies (neurotech startups etc.) are relevant by
     # default: any early-career role there, SWE included, is worth a look.
     is_big = watchlist is not None and watchlist.is_big(job.company)
     if job.from_watchlist and not is_big:
-        return True
+        return Relevance("Watchlist company (every early-career role counts)")
     # Everyone else (big companies, and Simplify jobs from companies not on
     # the watchlist) must mention a neuro keyword.
-    return matcher.matches(job.title) or matcher.matches(job.description or "")
+    match = matcher.find(job.title)
+    if match:
+        return Relevance(f'Keyword "{match.group(0)}" in title')
+    match = matcher.find(job.description)
+    if match:
+        text = job.description
+        start, end = match.span()
+        context = (text[max(0, start - 90):start], text[start:end], text[end:end + 90])
+        return Relevance(f'Keyword "{match.group(0)}" in description', context)
+    return None
+
+
+def is_relevant(job: Job, matcher: KeywordMatcher, watchlist: Watchlist | None = None) -> bool:
+    return relevance(job, matcher, watchlist) is not None
 
 
 # ---------------------------------------------------------------------------
