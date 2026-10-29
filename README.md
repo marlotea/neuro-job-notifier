@@ -83,13 +83,28 @@ New repository secret** and add:
 
 | Secret | Value |
 |---|---|
-| `SMTP_USER` | the Gmail address that sends the emails |
+| `SMTP_USER` | the Gmail address that sends the emails (the account you made the app password for) |
 | `SMTP_PASSWORD` | the app password from step 1 |
 | `EMAIL_TO` | where job emails should go (can be the same address) |
-| `ALERT_IMAP_USER` | *(phase 3)* the separate Gmail that receives LinkedIn alerts |
-| `ALERT_IMAP_PASSWORD` | *(phase 3)* an app password for that account |
 
-### 3. Run the first seed
+`ALERT_IMAP_USER` and `ALERT_IMAP_PASSWORD` are for LinkedIn alerts, which
+aren't built yet. Leave them unset for now.
+
+### 3. Send a test email
+
+Put the same three values in a `.env` file at the repo root (it's in
+`.gitignore`, so it never gets committed), then:
+
+```bash
+.venv/bin/python -m notifier.main --test-email
+```
+
+You should get one sample job email within a minute. If it lands in spam,
+mark it "Not spam" once so later ones arrive normally. If login fails, check
+that `SMTP_PASSWORD` is the 16-character app password, not your normal Gmail
+password.
+
+### 4. Run the first seed
 
 You can skip this step: the first scheduled run seeds automatically. Seeding
 locally lets you check the result before anything is emailed:
@@ -107,7 +122,7 @@ From then on, any job that wasn't in the seed gets an email.
 
 ### Local development
 
-Put your settings in a `.env` file at the repo root (it's in `.gitignore`):
+Your `.env` file looks like this:
 
 ```
 SMTP_USER=you@gmail.com
@@ -118,6 +133,7 @@ EMAIL_TO=you@gmail.com
 ```bash
 .venv/bin/python -m notifier.main --dry-run   # print emails, don't send, don't touch seen.json
 .venv/bin/python -m notifier.main --seed      # mark everything current as seen, no emails
+.venv/bin/python -m notifier.main --test-email  # send one sample email
 .venv/bin/python -m unittest discover -s tests -t .   # run the tests
 ```
 
@@ -125,6 +141,22 @@ EMAIL_TO=you@gmail.com
 handy for experiments.
 
 To run it on GitHub by hand, go to **Actions → Job notifier → Run workflow**.
+
+## What the emails look like
+
+Each job gets its own email. The subject is `[Job] {company}: {title}`. The
+body is a card with:
+
+- the company, the title, and a badge (**Internship / co-op** or **New grad**)
+- location (one line each), posted date (with "N days ago"), and source
+- **Why it's here**: either "Watchlist company", or the keyword that matched.
+  When the keyword was found in the description, the sentence around it is
+  shown with the keyword highlighted, so you can quickly judge borderline
+  matches.
+- a **View job posting** button, with the plain link underneath
+
+There's also a plain-text version for email apps that don't show HTML. The
+template is in `notifier/emailer.py`.
 
 ## Adding a company
 
@@ -165,7 +197,7 @@ see what changes.
 
 These companies don't use Greenhouse, Lever, or Ashby, so they aren't fetched
 directly (checked 2026-10-29). Their listings can still reach you through
-Simplify or LinkedIn alerts (phase 3). Check their careers pages yourself now
+Simplify. Check their careers pages yourself now
 and then.
 
 | Company | Job system | Careers page |
