@@ -1,0 +1,43 @@
+{
+  "seeded_sources": [
+    "ashby/metamorphic",
+    "greenhouse/motifneurotech",
+    "greenhouse/neuralink",
+    "greenhouse/neuropace",
+    "lever/convergentresearch",
+    "simplify"
+  ],
+  "seen_ids": [
+    "ashby:cf518648-4e65-4f7d-aa05-f01066d8bd8a",
+    "greenhouse:5469298003",
+    "greenhouse:5469305003",
+    "greenhouse:6083322003",
+    "greenhouse:6283663003",
+    "greenhouse:6514169003",
+    "greenhouse:6545426003",
+    "greenhouse:6569018003",
+    "greenhouse:6576326003",
+    "greenhouse:6594261003",
+    "greenhouse:6594422003",
+    "greenhouse:6607398003",
+    "greenhouse:6648992003",
+    "greenhouse:7090489003",
+    "greenhouse:7483748003",
+    "greenhouse:7565469003",
+    "greenhouse:7666761003",
+    "greenhouse:7702524003",
+    "greenhouse:7702527003",
+    "greenhouse:7736276003",
+    "greenhouse:8005705003",
+    "greenhouse:8005762003",
+    "greenhouse:8020751003",
+    "simplify:623c1200-4c4d-442b-9cbb-d063a413ba1b",
+    "simplify:797b4661-998f-4ea6-8778-a92417262718",
+    "simplify:bb16cddc-770c-4910-a803-c4c215a3a996",
+    "simplify:d57fb9b7-232f-4e54-b2f8-fbd358ebe6c4",
+    "simplify:d8b0a818-ae8f-42a9-b552-3d61c1542683",
+    "simplify:ddfacb50-7b30-40f1-ad9c-d18ea7fec641",
+    "simplify:ea08c6c8-892c-4350-84a7-0e279db538a4",
+    "simplify:f6b2ba47-0f93-4363-9f77-04ac9d5960b0"
+  ]
+}
