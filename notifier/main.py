@@ -1,7 +1,8 @@
 """Entry point: python -m notifier.main [--dry-run] [--seed]
 
 Pipeline: fetch each source -> filter -> drop already-seen jobs -> email the
-rest -> record what was sent in state/seen.json.
+rest -> record what was sent in state/seen.json -> write the website's data
+files in docs/data/.
 """
 
 import argparse
@@ -11,7 +12,7 @@ import sys
 from collections.abc import Callable
 from pathlib import Path
 
-from notifier import companies as companies_mod, filters, state as state_mod
+from notifier import companies as companies_mod, filters, site, state as state_mod
 from notifier.dedupe import job_keys, remove_duplicates
 from notifier.emailer import Emailer, format_email
 from notifier.models import Job
@@ -61,6 +62,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="path to seen.json (default: state/seen.json)")
     parser.add_argument("--test-email", action="store_true",
                         help="send one sample email to EMAIL_TO to check your settings, then stop")
+    parser.add_argument("--site-data", type=Path, default=site.DATA_DIR,
+                        help="where to write the website's jobs.json and companies.json (default: docs/data)")
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -80,6 +83,8 @@ def main(argv: list[str] | None = None) -> int:
     seeded: dict[str, int] = {}
     errors: list[str] = []
     new_jobs: list[Job] = []
+    # Every relevant job per source, new or not, for the website.
+    listings: dict[str, list[Job]] = {}
 
     for name, fetch in sources.items():
         # One broken source must not stop the others, so catch everything here.
@@ -98,6 +103,7 @@ def main(argv: list[str] | None = None) -> int:
                 job.from_watchlist = True
         relevant = filters.filter_jobs(jobs, matcher, watchlist)
         kept[name] = len(relevant)
+        listings[name] = relevant
 
         # First successful run of this source (or --seed): remember everything
         # it has right now, but don't email any of it.
@@ -133,6 +139,8 @@ def main(argv: list[str] | None = None) -> int:
         log.info("dry run: seen.json not updated")
     else:
         state_mod.save(state, args.state)
+        site.write(listings, set(sources) - set(listings), companies, matcher, watchlist,
+                   args.site_data)
 
     _print_summary(list(sources), fetched, kept, seeded, len(new_jobs), sent, errors, args.dry_run)
     # A non-zero exit code makes the GitHub Actions run show as failed, so
