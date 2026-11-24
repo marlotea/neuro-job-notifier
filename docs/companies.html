@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neuro Companies</title>
+  <meta name="description" content="BCI, neurotech and neuro-AI companies on the watchlist, with what each one does.">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Kaisei+Decol:wght@400;500&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="companies">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="./" class="wordmark" aria-label="Neuro jobs, home">nj.</a>
+      <nav aria-label="Pages">
+        <a class="nav-link" href="./">Jobs</a>
+        <a class="nav-link" href="companies.html" aria-current="page">Companies</a>
+        <a class="nav-link external" href="https://github.com/marlotea/neuro-job-notifier" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page">
+    <div class="layout">
+      <aside class="intro">
+        <div class="intro-sticky">
+          <div class="figure" id="figure"></div>
+          <h1>Companies</h1>
+          <p>The watchlist: <strong>invasive and non-invasive BCI</strong>, neuromodulation, neuro-AI labs and institutes, with what each one builds.</p>
+          <p class="run-status" id="run-status" aria-live="polite"></p>
+          <div class="filters">
+            <input class="field" id="search" type="search" placeholder="search companies" aria-label="Search companies">
+            <div class="pills" id="categories" role="group" aria-label="Category"></div>
+          </div>
+        </div>
+      </aside>
+      <div class="content" id="companies"></div>
+    </div>
+    <footer>
+      <span>Listings from company job boards and <a href="https://github.com/SimplifyJobs" target="_blank" rel="noopener noreferrer">SimplifyJobs</a>, checked twice a day.</span>
+      <span>Missing a company? <a href="https://github.com/marlotea/neuro-job-notifier/blob/main/config/companies.yaml" target="_blank" rel="noopener noreferrer">config/companies.yaml</a></span>
+    </footer>
+  </main>
+  <script src="assets/app.js"></script>
+</body>
+</html>
