@@ -47,6 +47,8 @@ NORTH_AMERICA_NAMES = [
     "Philadelphia", "Houston", "Dallas", "Miami", "Minneapolis", "Raleigh",
     "Ann Arbor", "Brooklyn", "Berkeley", "Oakland", "Irvine", "Princeton",
     "Baltimore", "Detroit", "Phoenix", "Nashville", "Ashburn",
+    # Where several BCI companies are, and their boards often omit the state
+    "Redwood City", "Fremont", "Alameda", "Bellevue",
 ]
 
 # Short uppercase forms. Matched case-sensitively so "US" doesn't match "us".
