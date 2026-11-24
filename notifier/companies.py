@@ -10,6 +10,16 @@ DEFAULT_PATH = Path(__file__).resolve().parent.parent / "config" / "companies.ya
 
 SUPPORTED_ATS = {"greenhouse", "lever", "ashby"}
 
+# Website section headings, in the order they appear on the company page.
+CATEGORIES = {
+    "invasive-bci": "Invasive BCI",
+    "noninvasive-bci": "Non-invasive BCI",
+    "neuromod": "Neuromodulation & neuro medtech",
+    "neuro-ai": "Neuro-AI labs",
+    "big-tech": "Big tech",
+    "institute": "Institutes",
+}
+
 
 @dataclass
 class Company:
@@ -21,6 +31,11 @@ class Company:
     # Other names the company goes by. Simplify, for example, might list
     # "Forest Neurotech" under its new name.
     aliases: list[str] = field(default_factory=list)
+    # Only used by the website (docs/).
+    category: str = "neuro-ai"
+    description: str = ""
+    website: str | None = None
+    linkedin: str | None = None
 
     @property
     def board_key(self) -> str:
@@ -41,9 +56,15 @@ def load(path: Path = DEFAULT_PATH) -> list[Company]:
             careers_url=entry.get("careers_url"),
             big_company=bool(entry.get("big_company", False)),
             aliases=entry.get("aliases") or [],
+            category=entry.get("category", "neuro-ai"),
+            description=entry.get("description", ""),
+            website=entry.get("website"),
+            linkedin=entry.get("linkedin"),
         )
         if company.ats in SUPPORTED_ATS and not company.slug:
             raise ValueError(f"{company.name}: ats is {company.ats} but no slug is set")
+        if company.category not in CATEGORIES:
+            raise ValueError(f"{company.name}: unknown category {company.category!r}")
         companies.append(company)
     return companies
 
