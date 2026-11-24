@@ -47,6 +47,8 @@ NORTH_AMERICA_NAMES = [
     "Philadelphia", "Houston", "Dallas", "Miami", "Minneapolis", "Raleigh",
     "Ann Arbor", "Brooklyn", "Berkeley", "Oakland", "Irvine", "Princeton",
     "Baltimore", "Detroit", "Phoenix", "Nashville", "Ashburn",
+    # Where several BCI companies are, and their boards often omit the state
+    "Redwood City", "Fremont", "Alameda", "Bellevue",
 ]
 
 # Short uppercase forms. Matched case-sensitively so "US" doesn't match "us".
@@ -122,10 +124,14 @@ _SENIOR_RE = re.compile(
 _YEAR_RE = re.compile(r"\b(20\d\d)\b")
 
 
+def role_kind(job: Job) -> str:
+    """"internship" or "new_grad"."""
+    return job.kind or ("internship" if _INTERN_RE.search(job.title) else "new_grad")
+
+
 def role_label(job: Job) -> str:
     """Human-friendly role type for emails."""
-    kind = job.kind or ("internship" if _INTERN_RE.search(job.title) else "new_grad")
-    return "Internship / co-op" if kind == "internship" else "New grad"
+    return "Internship / co-op" if role_kind(job) == "internship" else "New grad"
 
 
 def role_type_ok(job: Job) -> bool:
@@ -145,8 +151,7 @@ def _year_ok(job: Job) -> bool:
     years = {int(y) for y in _YEAR_RE.findall(job.title)}
     if not years:
         return True  # no year mentioned, so we can't rule it out
-    kind = job.kind or ("internship" if _INTERN_RE.search(job.title) else "new_grad")
-    if kind == "internship":
+    if role_kind(job) == "internship":
         return 2027 in years
     return max(years) >= 2027
 

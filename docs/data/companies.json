@@ -1,0 +1,601 @@
+{
+  "checked_at": "2026-11-24T17:51:05+00:00",
+  "categories": [
+    {
+      "id": "invasive-bci",
+      "label": "Invasive BCI"
+    },
+    {
+      "id": "noninvasive-bci",
+      "label": "Non-invasive BCI"
+    },
+    {
+      "id": "neuromod",
+      "label": "Neuromodulation & neuro medtech"
+    },
+    {
+      "id": "neuro-ai",
+      "label": "Neuro-AI labs"
+    },
+    {
+      "id": "big-tech",
+      "label": "Big tech"
+    },
+    {
+      "id": "institute",
+      "label": "Institutes"
+    }
+  ],
+  "companies": [
+    {
+      "name": "Neuralink",
+      "category": "invasive-bci",
+      "description": "Fully implanted, wireless BCI with ultra-thin threads placed by a surgical robot; in human trials for controlling computers by thought.",
+      "website": "https://neuralink.com/",
+      "linkedin": "https://www.linkedin.com/company/neuralink",
+      "careers_url": "https://neuralink.com/careers/",
+      "tracked": true,
+      "open_jobs": 20
+    },
+    {
+      "name": "Synchron",
+      "category": "invasive-bci",
+      "description": "Stentrode, an endovascular BCI delivered through a blood vessel instead of open-brain surgery.",
+      "website": "https://synchron.com/",
+      "linkedin": "https://www.linkedin.com/company/synchron-inc-",
+      "careers_url": "https://synchron.com/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Precision Neuroscience",
+      "category": "invasive-bci",
+      "description": "Layer 7, a thin-film electrode array that sits on the brain's surface without penetrating tissue; FDA-cleared for temporary use.",
+      "website": "https://www.precisionneuro.io/",
+      "linkedin": "https://www.linkedin.com/company/precision-neuroscience-corporation",
+      "careers_url": "https://www.precisionneuro.io/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Paradromics",
+      "category": "invasive-bci",
+      "description": "Connexus, a high-channel-count implanted BCI aimed at restoring speech for people with paralysis.",
+      "website": "https://paradromics.com/",
+      "linkedin": "https://www.linkedin.com/company/paradromics-inc",
+      "careers_url": "https://paradromics.com/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Blackrock Neurotech",
+      "category": "invasive-bci",
+      "description": "Maker of the Utah Array, the most widely implanted BCI electrode in human research.",
+      "website": "https://blackrockneurotech.com/",
+      "linkedin": "https://www.linkedin.com/company/blackrock-neurotech",
+      "careers_url": "https://blackrockneurotech.com/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Science Corp",
+      "category": "invasive-bci",
+      "description": "Neural engineering company behind PRIMA, a retinal implant that restores some vision, plus biohybrid brain interfaces.",
+      "website": "https://science.xyz/",
+      "linkedin": null,
+      "careers_url": "https://science.xyz/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Motif Neurotech",
+      "category": "invasive-bci",
+      "description": "DOT, a tiny skull-mounted stimulator for treatment-resistant depression; a Rice University spinout.",
+      "website": "https://motifneuro.tech/",
+      "linkedin": "https://www.linkedin.com/company/motif-neurotech",
+      "careers_url": "https://motifneuro.tech/careers",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Axoft",
+      "category": "invasive-bci",
+      "description": "Ultra-soft implant materials that match brain tissue, for long-lasting neural interfaces.",
+      "website": "https://axoft.us/",
+      "linkedin": "https://www.linkedin.com/company/axoftus",
+      "careers_url": "https://axoft.us/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Echo Neurotechnologies",
+      "category": "invasive-bci",
+      "description": "Implanted BCI that decodes speech from brain activity; founded by UCSF neurosurgeon Eddie Chang.",
+      "website": "https://www.echoneurotechnologies.com/",
+      "linkedin": null,
+      "careers_url": "https://job-boards.greenhouse.io/echo",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Starfish Neuroscience",
+      "category": "invasive-bci",
+      "description": "Small, low-power brain chips for neuromodulation and recording; co-founded by Gabe Newell.",
+      "website": "https://starfishneuroscience.com/",
+      "linkedin": "https://www.linkedin.com/company/starfish-neuroscience",
+      "careers_url": "https://job-boards.greenhouse.io/starfishneuroscience",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Phantom Neuro",
+      "category": "invasive-bci",
+      "description": "Minimally invasive implanted nerve interface for controlling prosthetic limbs.",
+      "website": "https://phantomneuro.com/",
+      "linkedin": "https://www.linkedin.com/company/phantomneuro",
+      "careers_url": "https://phantomneuro.com/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "CorTec",
+      "category": "invasive-bci",
+      "description": "Brain Interchange, a closed-loop implant for recording and stimulating the brain; first US implant for stroke rehab in 2025.",
+      "website": "https://www.cortec-neuro.com/",
+      "linkedin": "https://www.linkedin.com/company/cortec-gmbh",
+      "careers_url": "https://www.cortec-neuro.com/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "INBRAIN Neuroelectronics",
+      "category": "invasive-bci",
+      "description": "Graphene-based brain interfaces for Parkinson's and brain mapping; based in Barcelona.",
+      "website": "https://inbrain-neuroelectronics.com/",
+      "linkedin": "https://www.linkedin.com/company/inbrain-neuroelectronics",
+      "careers_url": "https://inbrain-neuroelectronics.jobs.personio.com/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Diagnostic Biochips",
+      "category": "invasive-bci",
+      "description": "Microfabricated implantable neural probes for high-resolution brain recording in research.",
+      "website": "https://www.diagnosticbiochips.com/",
+      "linkedin": "https://www.linkedin.com/company/diagnostic-biochips-inc-",
+      "careers_url": "https://www.diagnosticbiochips.com/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Ripple Neuro",
+      "category": "invasive-bci",
+      "description": "Neural recording and stimulation electronics used in implant research and clinical BCI studies.",
+      "website": "https://rippleneuro.com/",
+      "linkedin": "https://www.linkedin.com/company/ripple-llc",
+      "careers_url": "https://rippleneuro.com/careers-at-ripple/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Intan Technologies",
+      "category": "invasive-bci",
+      "description": "Amplifier chips and recording systems used in electrophysiology labs worldwide.",
+      "website": "https://intantech.com/",
+      "linkedin": null,
+      "careers_url": "https://intantech.com/careers.html",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Merge Labs",
+      "category": "noninvasive-bci",
+      "description": "BCI that links to neurons with molecules and reads and writes with ultrasound instead of implanted electrodes; backed by OpenAI.",
+      "website": "https://merge.io/",
+      "linkedin": null,
+      "careers_url": "https://merge.io/careers",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Nudge",
+      "category": "noninvasive-bci",
+      "description": "Whole-brain interfaces for everyday life, using focused ultrasound to read and stimulate the brain without surgery.",
+      "website": "https://nudge.com/",
+      "linkedin": "https://www.linkedin.com/company/nudge-corp",
+      "careers_url": "https://nudge.com/careers",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Bridge Neurotech",
+      "category": "noninvasive-bci",
+      "description": "Wearable ultrasound that images brain activity in real time without surgery; first study enrolling in Redwood City.",
+      "website": "https://www.bridgeneurotech.com/",
+      "linkedin": null,
+      "careers_url": "https://jobs.ashbyhq.com/bridgeneurotech",
+      "tracked": true,
+      "open_jobs": 3
+    },
+    {
+      "name": "Subsense",
+      "category": "noninvasive-bci",
+      "description": "Non-surgical, two-way BCI built on nanoparticles that are read and controlled by a wearable headset.",
+      "website": "https://subsense-bci.com/",
+      "linkedin": "https://www.linkedin.com/company/100483628",
+      "careers_url": "https://jobs.lever.co/subsense",
+      "tracked": true,
+      "open_jobs": 1
+    },
+    {
+      "name": "Sabi",
+      "category": "noninvasive-bci",
+      "description": "Sabi Cap, a high-density EEG wearable plus a brain foundation model that turns imagined speech into text.",
+      "website": "https://www.sabi.com/",
+      "linkedin": null,
+      "careers_url": "https://jobs.ashbyhq.com/sabi",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Alljoined",
+      "category": "noninvasive-bci",
+      "description": "Collecting large EEG datasets and training models to make human thought legible to AI.",
+      "website": "https://alljoined.com/",
+      "linkedin": "https://www.linkedin.com/company/alljoined",
+      "careers_url": "https://jobs.ashbyhq.com/alljoined",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Synaptrix Labs",
+      "category": "noninvasive-bci",
+      "description": "Non-invasive EEG-based BCI hardware and ML, from electrode arrays to embedded systems; based in NYC.",
+      "website": "https://synaptrixlabs.com/",
+      "linkedin": null,
+      "careers_url": "https://synaptrixlabs.com/careers",
+      "tracked": true,
+      "open_jobs": 1
+    },
+    {
+      "name": "Kernel",
+      "category": "noninvasive-bci",
+      "description": "Kernel Flow, a wearable fNIRS headset that measures brain activity for research and brain health.",
+      "website": "https://kernel.com/",
+      "linkedin": "https://www.linkedin.com/company/kernel",
+      "careers_url": "https://kernel.com/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Neurable",
+      "category": "noninvasive-bci",
+      "description": "EEG sensors built into everyday headphones to track focus and fatigue.",
+      "website": "https://www.neurable.com/",
+      "linkedin": "https://www.linkedin.com/company/neurable",
+      "careers_url": "https://www.neurable.com/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Cognixion",
+      "category": "noninvasive-bci",
+      "description": "Cognixion ONE, an EEG + augmented reality headset that helps people with ALS and similar conditions communicate.",
+      "website": "https://www.cognixion.com/",
+      "linkedin": "https://www.linkedin.com/company/cognixion",
+      "careers_url": "https://www.cognixion.com/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "InteraXon",
+      "category": "noninvasive-bci",
+      "description": "Muse, the consumer EEG (and fNIRS) headband for meditation and sleep; based in Toronto.",
+      "website": "https://choosemuse.com/",
+      "linkedin": "https://www.linkedin.com/company/interaxon-inc",
+      "careers_url": "https://choosemuse.com/pages/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Emotiv",
+      "category": "noninvasive-bci",
+      "description": "Wireless EEG headsets and earbuds for research, wellness, and BCI software development.",
+      "website": "https://www.emotiv.com/",
+      "linkedin": "https://www.linkedin.com/company/emotiv",
+      "careers_url": "https://www.emotiv.com/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "OpenBCI",
+      "category": "noninvasive-bci",
+      "description": "Open-source EEG/EMG hardware and software, including the Galea headset for XR research.",
+      "website": "https://openbci.com/",
+      "linkedin": null,
+      "careers_url": "https://openbci.com/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Neurosity",
+      "category": "noninvasive-bci",
+      "description": "Crown, a developer-focused EEG headset with an SDK for building BCI apps.",
+      "website": "https://neurosity.co/",
+      "linkedin": null,
+      "careers_url": "https://neurosity.co/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Arctop",
+      "category": "noninvasive-bci",
+      "description": "Software that decodes focus, cognitive load, and attention from EEG in everyday headphones, in real time.",
+      "website": "https://www.arctop.com/",
+      "linkedin": "https://www.linkedin.com/company/arctop",
+      "careers_url": "https://www.arctop.com/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "BrainCo",
+      "category": "noninvasive-bci",
+      "description": "EEG headbands and EMG-controlled prosthetic hands; a Harvard spinout based in Somerville and Hangzhou.",
+      "website": "https://www.brainco.tech/",
+      "linkedin": null,
+      "careers_url": "https://www.brainco.tech/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "NextSense",
+      "category": "noninvasive-bci",
+      "description": "EEG earbuds that adapt audio to your brain activity for better sleep; a Google X spinout.",
+      "website": "https://www.nextsense.io/",
+      "linkedin": "https://www.linkedin.com/company/nextsense-inc",
+      "careers_url": "https://www.nextsense.io/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Elemind",
+      "category": "noninvasive-bci",
+      "description": "A headband that reads EEG and plays timed sound to help you fall asleep faster.",
+      "website": "https://elemindtech.com/",
+      "linkedin": "https://www.linkedin.com/company/elemind",
+      "careers_url": "https://elemindtech.com/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Openwater",
+      "category": "noninvasive-bci",
+      "description": "Low-cost, open-source devices that image and stimulate the body and brain with light and ultrasound.",
+      "website": "https://www.openwater.health/",
+      "linkedin": "https://www.linkedin.com/company/openwater-health",
+      "careers_url": "https://www.openwater.health/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Piramidal",
+      "category": "noninvasive-bci",
+      "description": "Foundation models for EEG that read brain signals at the level of clinical experts.",
+      "website": "https://piramidal.ai/",
+      "linkedin": "https://www.linkedin.com/company/piramidalai",
+      "careers_url": "https://piramidal.ai/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "NeuroPace",
+      "category": "neuromod",
+      "description": "RNS System, an implanted device that detects and stops seizures in drug-resistant epilepsy.",
+      "website": "https://www.neuropace.com/",
+      "linkedin": "https://www.linkedin.com/company/neuropace",
+      "careers_url": "https://www.neuropace.com/",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Ceribell",
+      "category": "neuromod",
+      "description": "Rapid-setup EEG headband with AI seizure detection, used in emergency rooms and ICUs.",
+      "website": "https://ceribell.com/",
+      "linkedin": "https://www.linkedin.com/company/ceribell",
+      "careers_url": "https://ceribell.com/careers",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Beacon Biosignals",
+      "category": "neuromod",
+      "description": "AI on EEG and sleep data for clinical trials and at-home brain monitoring.",
+      "website": "https://beacon.bio/",
+      "linkedin": "https://www.linkedin.com/company/beaconbiosignals",
+      "careers_url": "https://beacon.bio/careers",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Cala Health",
+      "category": "neuromod",
+      "description": "Wrist-worn nerve stimulation therapy for essential tremor.",
+      "website": "https://calahealth.com/",
+      "linkedin": "https://www.linkedin.com/company/cala-health-inc",
+      "careers_url": "https://job-boards.greenhouse.io/calahealth",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "ONWARD Medical",
+      "category": "neuromod",
+      "description": "Spinal cord stimulation systems (ARC-EX, ARC-IM) that help people with spinal cord injury regain movement.",
+      "website": "https://www.onwd.com/",
+      "linkedin": null,
+      "careers_url": "https://www.onwd.com/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Neuronetics",
+      "category": "neuromod",
+      "description": "NeuroStar, a TMS (magnetic brain stimulation) therapy for depression.",
+      "website": "https://neurostar.com/",
+      "linkedin": "https://www.linkedin.com/company/neuronetics-inc.",
+      "careers_url": "https://neurostar.com/about-us/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Medtronic",
+      "category": "neuromod",
+      "description": "The largest medical device company; its neuromodulation unit makes deep brain stimulation systems that sense brain signals.",
+      "website": "https://www.medtronic.com/",
+      "linkedin": null,
+      "careers_url": "https://medtronic.wd1.myworkdayjobs.com/MedtronicCareers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Boston Scientific",
+      "category": "neuromod",
+      "description": "Medical devices, including Vercise deep brain stimulation and spinal cord stimulators for chronic pain.",
+      "website": "https://www.bostonscientific.com/",
+      "linkedin": null,
+      "careers_url": "https://bostonscientific.eightfold.ai/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Abbott",
+      "category": "neuromod",
+      "description": "Healthcare company whose neuromodulation unit makes deep brain and spinal cord stimulation systems.",
+      "website": "https://www.abbott.com/",
+      "linkedin": null,
+      "careers_url": "https://abbott.wd5.myworkdayjobs.com/abbottcareers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Metamorphic",
+      "category": "neuro-ai",
+      "description": "Foundation models trained on large-scale neural recordings, from the team behind MICrONS and Neuropixels.",
+      "website": "https://jobs.ashbyhq.com/metamorphic",
+      "linkedin": null,
+      "careers_url": "https://jobs.ashbyhq.com/metamorphic",
+      "tracked": true,
+      "open_jobs": 1
+    },
+    {
+      "name": "Convergent Research",
+      "category": "neuro-ai",
+      "description": "Runs nonprofit research groups, including E11 Bio (brain mapping) and Arbor Neuroscience (ultrasound brain imaging, formerly Forest Neurotech).",
+      "website": "https://www.convergentresearch.org/",
+      "linkedin": "https://www.linkedin.com/company/convergent-research",
+      "careers_url": "https://www.convergentresearch.org/careers",
+      "tracked": true,
+      "open_jobs": 0
+    },
+    {
+      "name": "Meta",
+      "category": "big-tech",
+      "description": "Reality Labs builds the EMG wristband neural interface for controlling AR glasses, plus brain-decoding research at FAIR.",
+      "website": "https://about.meta.com/",
+      "linkedin": "https://www.linkedin.com/company/meta",
+      "careers_url": "https://www.metacareers.com/",
+      "tracked": false,
+      "open_jobs": 2
+    },
+    {
+      "name": "Google DeepMind",
+      "category": "big-tech",
+      "description": "AI research lab with neuroscience-inspired research teams.",
+      "website": "https://deepmind.google/",
+      "linkedin": null,
+      "careers_url": "https://deepmind.google/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Allen Institute",
+      "category": "institute",
+      "description": "Nonprofit research institute that builds open brain atlases, cell types data, and large-scale neural recordings.",
+      "website": "https://alleninstitute.org/",
+      "linkedin": "https://www.linkedin.com/company/allen-institute",
+      "careers_url": "https://alleninstitute.org/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "HHMI Janelia",
+      "category": "institute",
+      "description": "HHMI's research campus focused on neural circuits, imaging, and tools like Neuropixels.",
+      "website": "https://www.janelia.org/",
+      "linkedin": null,
+      "careers_url": "https://www.hhmi.org/careers/janelia",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Simons Foundation",
+      "category": "institute",
+      "description": "Funds and runs science research, including the Flatiron Institute's computational neuroscience center.",
+      "website": "https://www.simonsfoundation.org/",
+      "linkedin": null,
+      "careers_url": "https://www.simonsfoundation.org/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Wu Tsai Neurosciences Institute",
+      "category": "institute",
+      "description": "Stanford's interdisciplinary neuroscience institute.",
+      "website": "https://neuroscience.stanford.edu/",
+      "linkedin": "https://www.linkedin.com/company/wu-tsai-neurosciences-institute",
+      "careers_url": "https://neuroscience.stanford.edu/get-involved-wu-tsai-neuro/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Mila",
+      "category": "institute",
+      "description": "Quebec AI institute in Montreal, with some neuro-AI research groups.",
+      "website": "https://mila.quebec/",
+      "linkedin": null,
+      "careers_url": "https://mila.quebec/en/careers",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Vector Institute",
+      "category": "institute",
+      "description": "Toronto AI research institute, including health and neuro applications.",
+      "website": "https://vectorinstitute.ai/",
+      "linkedin": "https://www.linkedin.com/company/vector-institute",
+      "careers_url": "https://vectorinstitute.ai/about/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "University Health Network",
+      "category": "institute",
+      "description": "Toronto hospital network; home of the Krembil Brain Institute.",
+      "website": "https://www.uhn.ca/",
+      "linkedin": "https://www.linkedin.com/company/university-health-network",
+      "careers_url": "https://jobs.smartrecruiters.com/UniversityHealthNetwork",
+      "tracked": false,
+      "open_jobs": 0
+    },
+    {
+      "name": "Djavad Mowafaghian Centre for Brain Health",
+      "category": "institute",
+      "description": "UBC's brain health research centre in Vancouver.",
+      "website": "https://www.centreforbrainhealth.ca/",
+      "linkedin": null,
+      "careers_url": "https://www.centreforbrainhealth.ca/careers/",
+      "tracked": false,
+      "open_jobs": 0
+    }
+  ]
+}

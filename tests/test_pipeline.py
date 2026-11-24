@@ -41,7 +41,8 @@ class PipelineTests(unittest.TestCase):
 
     def run_main(self, *flags) -> int:
         with redirect_stdout(io.StringIO()):
-            return main_mod.main(["--state", str(self.state_path), *flags])
+            return main_mod.main(["--state", str(self.state_path),
+                                  "--site-data", self.tmp.name, *flags])
 
     def seen(self) -> set[str]:
         return set(json.loads(self.state_path.read_text())["seen_ids"])

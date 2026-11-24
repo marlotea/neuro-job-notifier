@@ -1,6 +1,12 @@
-# Company watchlist.
+# Company watchlist. Also feeds the company page of the website (docs/).
 #
-#   name:         how the company appears in emails
+#   name:         how the company appears in emails and on the site
+#   category:     invasive-bci | noninvasive-bci | neuromod | neuro-ai | institute | big-tech
+#                 (groups companies on the website)
+#   description:  one sentence on what they do, shown on the website
+#   website:      the company's home page
+#   linkedin:     the company's LinkedIn page. Leave it out if you haven't
+#                 confirmed it; the site then links to a LinkedIn search.
 #   ats:          greenhouse | lever | ashby | unknown
 #   slug:         the company's ID on that job board (only for greenhouse/lever/ashby)
 #   careers_url:  the human-readable careers page
@@ -12,81 +18,148 @@
 # Companies with ats: unknown aren't fetched directly. They still matter: if one
 # of them shows up on Simplify, the big_company rule above applies to that job.
 #
-# Every greenhouse/lever/ashby slug below was confirmed on 2026-10-29 to return
-# that company's real job board.
+# Slugs were checked to return that company's real job board: the original
+# entries on 2026-10-29, the ones marked "added 2026-11-24" on that date.
+# LinkedIn links come from each company's own website, or from LinkedIn search
+# results when the site didn't link one.
 
-# --- BCI / neurotech -------------------------------------------------------
+# --- Invasive BCI ------------------------------------------------------------
+# Implants placed in, on, or next to the brain (or nerves).
 
 - name: Neuralink
+  category: invasive-bci
+  description: Fully implanted, wireless BCI with ultra-thin threads placed by a surgical robot; in human trials for controlling computers by thought.
+  website: https://neuralink.com/
+  linkedin: https://www.linkedin.com/company/neuralink
   ats: greenhouse
   slug: neuralink
   careers_url: https://neuralink.com/careers/
   big_company: false
 
 - name: Synchron
+  category: invasive-bci
+  description: Stentrode, an endovascular BCI delivered through a blood vessel instead of open-brain surgery.
+  website: https://synchron.com/
+  linkedin: https://www.linkedin.com/company/synchron-inc-
   ats: unknown  # ADP Workforce Now
   careers_url: https://synchron.com/careers
   big_company: false
 
 - name: Precision Neuroscience
+  category: invasive-bci
+  description: Layer 7, a thin-film electrode array that sits on the brain's surface without penetrating tissue; FDA-cleared for temporary use.
+  website: https://www.precisionneuro.io/
+  linkedin: https://www.linkedin.com/company/precision-neuroscience-corporation
   ats: unknown  # Kula (careers.kula.ai/precision-neuroscience)
   careers_url: https://www.precisionneuro.io/careers
   big_company: false
 
 - name: Paradromics
+  category: invasive-bci
+  description: Connexus, a high-channel-count implanted BCI aimed at restoring speech for people with paralysis.
+  website: https://paradromics.com/
+  linkedin: https://www.linkedin.com/company/paradromics-inc
   ats: unknown  # JazzHR (paradromicsinc.applytojob.com)
   careers_url: https://paradromics.com/careers/
   big_company: false
 
 - name: Blackrock Neurotech
+  category: invasive-bci
+  description: Maker of the Utah Array, the most widely implanted BCI electrode in human research.
+  website: https://blackrockneurotech.com/
+  linkedin: https://www.linkedin.com/company/blackrock-neurotech
   ats: unknown  # Rippling (ats.rippling.com/blackrockneurotech)
   careers_url: https://blackrockneurotech.com/careers/
   big_company: false
 
 - name: Science Corp
+  category: invasive-bci
+  description: Neural engineering company behind PRIMA, a retinal implant that restores some vision, plus biohybrid brain interfaces.
+  website: https://science.xyz/
   ats: unknown  # Science's own job site (jobs.science.xyz)
   careers_url: https://science.xyz/careers/
   big_company: false
   aliases: [Science Corporation]
 
 - name: Motif Neurotech
+  category: invasive-bci
+  description: DOT, a tiny skull-mounted stimulator for treatment-resistant depression; a Rice University spinout.
+  website: https://motifneuro.tech/
+  linkedin: https://www.linkedin.com/company/motif-neurotech
   ats: greenhouse
   slug: motifneurotech  # board exists but had 0 jobs on 2026-10-29 ("not hiring")
   careers_url: https://motifneuro.tech/careers
   big_company: false
 
 - name: Axoft
+  category: invasive-bci
+  description: Ultra-soft implant materials that match brain tissue, for long-lasting neural interfaces.
+  website: https://axoft.us/
+  linkedin: https://www.linkedin.com/company/axoftus
   ats: unknown  # Polymer (jobs.polymer.co/axoft)
   careers_url: https://axoft.us/
   big_company: false
 
+- name: Echo Neurotechnologies
+  category: invasive-bci
+  description: Implanted BCI that decodes speech from brain activity; founded by UCSF neurosurgeon Eddie Chang.
+  website: https://www.echoneurotechnologies.com/
+  ats: greenhouse
+  slug: echo  # added 2026-11-24; linked from their website
+  careers_url: https://job-boards.greenhouse.io/echo
+  big_company: false
+
+- name: Starfish Neuroscience
+  category: invasive-bci
+  description: Small, low-power brain chips for neuromodulation and recording; co-founded by Gabe Newell.
+  website: https://starfishneuroscience.com/
+  linkedin: https://www.linkedin.com/company/starfish-neuroscience
+  ats: greenhouse
+  slug: starfishneuroscience  # added 2026-11-24
+  careers_url: https://job-boards.greenhouse.io/starfishneuroscience
+  big_company: false
+
 - name: Phantom Neuro
+  category: invasive-bci
+  description: Minimally invasive implanted nerve interface for controlling prosthetic limbs.
+  website: https://phantomneuro.com/
+  linkedin: https://www.linkedin.com/company/phantomneuro
   ats: unknown  # no careers page found
   careers_url: https://phantomneuro.com/
   big_company: false
 
-- name: Neurable
-  ats: unknown  # JazzHR (neurable.applytojob.com)
-  careers_url: https://www.neurable.com/careers
+- name: CorTec
+  category: invasive-bci
+  description: Brain Interchange, a closed-loop implant for recording and stimulating the brain; first US implant for stroke rehab in 2025.
+  website: https://www.cortec-neuro.com/
+  linkedin: https://www.linkedin.com/company/cortec-gmbh
+  ats: unknown  # own careers page; based in Germany
+  careers_url: https://www.cortec-neuro.com/careers
   big_company: false
 
-- name: Kernel
-  ats: unknown  # no careers page or listings found
-  careers_url: https://kernel.com/
+- name: INBRAIN Neuroelectronics
+  category: invasive-bci
+  description: Graphene-based brain interfaces for Parkinson's and brain mapping; based in Barcelona.
+  website: https://inbrain-neuroelectronics.com/
+  linkedin: https://www.linkedin.com/company/inbrain-neuroelectronics
+  ats: unknown  # Personio (inbrain-neuroelectronics.jobs.personio.com); jobs are in Spain
+  careers_url: https://inbrain-neuroelectronics.jobs.personio.com/
   big_company: false
 
-- name: Cognixion
-  ats: unknown  # BambooHR
-  careers_url: https://www.cognixion.com/careers
+- name: Diagnostic Biochips
+  category: invasive-bci
+  description: Microfabricated implantable neural probes for high-resolution brain recording in research.
+  website: https://www.diagnosticbiochips.com/
+  linkedin: https://www.linkedin.com/company/diagnostic-biochips-inc-
+  ats: unknown  # no job system found
+  careers_url: https://www.diagnosticbiochips.com/
   big_company: false
-
-- name: InteraXon
-  ats: unknown  # old Lever board (jobs.lever.co/interaxon) is gone
-  careers_url: https://choosemuse.com/pages/careers
-  big_company: false
-  aliases: [Muse by Interaxon]
 
 - name: Ripple Neuro
+  category: invasive-bci
+  description: Neural recording and stimulation electronics used in implant research and clinical BCI studies.
+  website: https://rippleneuro.com/
+  linkedin: https://www.linkedin.com/company/ripple-llc
   # Their careers page loads Greenhouse board "rippleneurotechventures", but
   # Greenhouse answers "Job board not found". Check again later.
   ats: unknown
@@ -94,13 +167,287 @@
   big_company: false
 
 - name: Intan Technologies
+  category: invasive-bci
+  description: Amplifier chips and recording systems used in electrophysiology labs worldwide.
+  website: https://intantech.com/
   ats: unknown  # careers page says "no open positions", no job system
   careers_url: https://intantech.com/careers.html
   big_company: false
 
-# --- Neuro-AI labs ---------------------------------------------------------
+# --- Non-invasive BCI --------------------------------------------------------
+# Wearables and other interfaces that need no surgery: EEG, fNIRS, ultrasound,
+# nanoparticles.
+
+- name: Merge Labs
+  category: noninvasive-bci
+  description: BCI that links to neurons with molecules and reads and writes with ultrasound instead of implanted electrodes; backed by OpenAI.
+  website: https://merge.io/
+  ats: ashby
+  slug: Merge Labs  # added 2026-11-24; the slug really has a space ("ashby/merge" is a different company)
+  careers_url: https://merge.io/careers
+  big_company: false
+
+- name: Nudge
+  category: noninvasive-bci
+  description: Whole-brain interfaces for everyday life, using focused ultrasound to read and stimulate the brain without surgery.
+  website: https://nudge.com/
+  linkedin: https://www.linkedin.com/company/nudge-corp
+  ats: ashby
+  slug: nudge  # added 2026-11-24
+  careers_url: https://nudge.com/careers
+  big_company: false
+
+- name: Bridge Neurotech
+  category: noninvasive-bci
+  description: Wearable ultrasound that images brain activity in real time without surgery; first study enrolling in Redwood City.
+  website: https://www.bridgeneurotech.com/
+  ats: ashby
+  slug: bridgeneurotech  # added 2026-11-24
+  careers_url: https://jobs.ashbyhq.com/bridgeneurotech
+  big_company: false
+
+- name: Subsense
+  category: noninvasive-bci
+  description: Non-surgical, two-way BCI built on nanoparticles that are read and controlled by a wearable headset.
+  website: https://subsense-bci.com/
+  linkedin: https://www.linkedin.com/company/100483628
+  ats: lever
+  slug: subsense  # added 2026-11-24
+  careers_url: https://jobs.lever.co/subsense
+  big_company: false
+
+- name: Sabi
+  category: noninvasive-bci
+  description: Sabi Cap, a high-density EEG wearable plus a brain foundation model that turns imagined speech into text.
+  website: https://www.sabi.com/
+  ats: ashby
+  slug: sabi  # added 2026-11-24
+  careers_url: https://jobs.ashbyhq.com/sabi
+  big_company: false
+
+- name: Alljoined
+  category: noninvasive-bci
+  description: Collecting large EEG datasets and training models to make human thought legible to AI.
+  website: https://alljoined.com/
+  linkedin: https://www.linkedin.com/company/alljoined
+  ats: ashby
+  slug: alljoined  # added 2026-11-24
+  careers_url: https://jobs.ashbyhq.com/alljoined
+  big_company: false
+
+- name: Synaptrix Labs
+  category: noninvasive-bci
+  description: Non-invasive EEG-based BCI hardware and ML, from electrode arrays to embedded systems; based in NYC.
+  website: https://synaptrixlabs.com/
+  ats: greenhouse
+  slug: synaptrixlabs  # added 2026-11-24
+  careers_url: https://synaptrixlabs.com/careers
+  big_company: false
+
+- name: Kernel
+  category: noninvasive-bci
+  description: Kernel Flow, a wearable fNIRS headset that measures brain activity for research and brain health.
+  website: https://kernel.com/
+  linkedin: https://www.linkedin.com/company/kernel
+  ats: unknown  # no careers page or listings found ("ashby/kernel" is a different company)
+  careers_url: https://kernel.com/
+  big_company: false
+
+- name: Neurable
+  category: noninvasive-bci
+  description: EEG sensors built into everyday headphones to track focus and fatigue.
+  website: https://www.neurable.com/
+  linkedin: https://www.linkedin.com/company/neurable
+  ats: unknown  # JazzHR (neurable.applytojob.com)
+  careers_url: https://www.neurable.com/careers
+  big_company: false
+
+- name: Cognixion
+  category: noninvasive-bci
+  description: Cognixion ONE, an EEG + augmented reality headset that helps people with ALS and similar conditions communicate.
+  website: https://www.cognixion.com/
+  linkedin: https://www.linkedin.com/company/cognixion
+  ats: unknown  # BambooHR
+  careers_url: https://www.cognixion.com/careers
+  big_company: false
+
+- name: InteraXon
+  category: noninvasive-bci
+  description: Muse, the consumer EEG (and fNIRS) headband for meditation and sleep; based in Toronto.
+  website: https://choosemuse.com/
+  linkedin: https://www.linkedin.com/company/interaxon-inc
+  ats: unknown  # old Lever board (jobs.lever.co/interaxon) is gone
+  careers_url: https://choosemuse.com/pages/careers
+  big_company: false
+  aliases: [Muse by Interaxon]
+
+- name: Emotiv
+  category: noninvasive-bci
+  description: Wireless EEG headsets and earbuds for research, wellness, and BCI software development.
+  website: https://www.emotiv.com/
+  linkedin: https://www.linkedin.com/company/emotiv
+  ats: unknown  # no job system found
+  careers_url: https://www.emotiv.com/
+  big_company: false
+
+- name: OpenBCI
+  category: noninvasive-bci
+  description: Open-source EEG/EMG hardware and software, including the Galea headset for XR research.
+  website: https://openbci.com/
+  ats: unknown  # no job system found
+  careers_url: https://openbci.com/careers
+  big_company: false
+
+- name: Neurosity
+  category: noninvasive-bci
+  description: Crown, a developer-focused EEG headset with an SDK for building BCI apps.
+  website: https://neurosity.co/
+  ats: unknown  # no job system found
+  careers_url: https://neurosity.co/
+  big_company: false
+
+- name: Arctop
+  category: noninvasive-bci
+  description: Software that decodes focus, cognitive load, and attention from EEG in everyday headphones, in real time.
+  website: https://www.arctop.com/
+  linkedin: https://www.linkedin.com/company/arctop
+  ats: unknown  # own careers page
+  careers_url: https://www.arctop.com/careers
+  big_company: false
+
+- name: BrainCo
+  category: noninvasive-bci
+  description: EEG headbands and EMG-controlled prosthetic hands; a Harvard spinout based in Somerville and Hangzhou.
+  website: https://www.brainco.tech/
+  ats: unknown  # own careers page ("ashby/brainco" is a different company)
+  careers_url: https://www.brainco.tech/careers
+  big_company: false
+
+- name: NextSense
+  category: noninvasive-bci
+  description: EEG earbuds that adapt audio to your brain activity for better sleep; a Google X spinout.
+  website: https://www.nextsense.io/
+  linkedin: https://www.linkedin.com/company/nextsense-inc
+  ats: unknown  # no job system found
+  careers_url: https://www.nextsense.io/
+  big_company: false
+
+- name: Elemind
+  category: noninvasive-bci
+  description: A headband that reads EEG and plays timed sound to help you fall asleep faster.
+  website: https://elemindtech.com/
+  linkedin: https://www.linkedin.com/company/elemind
+  ats: unknown  # no job system found
+  careers_url: https://elemindtech.com/
+  big_company: false
+
+- name: Openwater
+  category: noninvasive-bci
+  description: Low-cost, open-source devices that image and stimulate the body and brain with light and ultrasound.
+  website: https://www.openwater.health/
+  linkedin: https://www.linkedin.com/company/openwater-health
+  ats: unknown  # no job system found
+  careers_url: https://www.openwater.health/
+  big_company: false
+
+- name: Piramidal
+  category: noninvasive-bci
+  description: Foundation models for EEG that read brain signals at the level of clinical experts.
+  website: https://piramidal.ai/
+  linkedin: https://www.linkedin.com/company/piramidalai
+  ats: unknown  # no job system found
+  careers_url: https://piramidal.ai/
+  big_company: false
+
+# --- Neuromodulation & neuro medtech ----------------------------------------
+
+- name: NeuroPace
+  category: neuromod
+  description: RNS System, an implanted device that detects and stops seizures in drug-resistant epilepsy.
+  website: https://www.neuropace.com/
+  linkedin: https://www.linkedin.com/company/neuropace
+  ats: greenhouse
+  slug: neuropace
+  careers_url: https://www.neuropace.com/
+  big_company: false
+
+- name: Ceribell
+  category: neuromod
+  description: Rapid-setup EEG headband with AI seizure detection, used in emergency rooms and ICUs.
+  website: https://ceribell.com/
+  linkedin: https://www.linkedin.com/company/ceribell
+  ats: greenhouse
+  slug: ceribell  # added 2026-11-24
+  careers_url: https://ceribell.com/careers
+  big_company: false
+
+- name: Beacon Biosignals
+  category: neuromod
+  description: AI on EEG and sleep data for clinical trials and at-home brain monitoring.
+  website: https://beacon.bio/
+  linkedin: https://www.linkedin.com/company/beaconbiosignals
+  ats: greenhouse
+  slug: beaconbiosignals  # added 2026-11-24
+  careers_url: https://beacon.bio/careers
+  big_company: false
+
+- name: Cala Health
+  category: neuromod
+  description: Wrist-worn nerve stimulation therapy for essential tremor.
+  website: https://calahealth.com/
+  linkedin: https://www.linkedin.com/company/cala-health-inc
+  ats: greenhouse
+  slug: calahealth  # added 2026-11-24
+  careers_url: https://job-boards.greenhouse.io/calahealth
+  big_company: false
+
+- name: ONWARD Medical
+  category: neuromod
+  description: Spinal cord stimulation systems (ARC-EX, ARC-IM) that help people with spinal cord injury regain movement.
+  website: https://www.onwd.com/
+  ats: unknown  # no job system found
+  careers_url: https://www.onwd.com/
+  big_company: false
+
+- name: Neuronetics
+  category: neuromod
+  description: NeuroStar, a TMS (magnetic brain stimulation) therapy for depression.
+  website: https://neurostar.com/
+  linkedin: https://www.linkedin.com/company/neuronetics-inc.
+  ats: unknown  # Rippling (ats.rippling.com/careers-neuronetics)
+  careers_url: https://neurostar.com/about-us/careers/
+  big_company: false
+
+- name: Medtronic
+  category: neuromod
+  description: The largest medical device company; its neuromodulation unit makes deep brain stimulation systems that sense brain signals.
+  website: https://www.medtronic.com/
+  ats: unknown  # Workday
+  careers_url: https://medtronic.wd1.myworkdayjobs.com/MedtronicCareers
+  big_company: true
+
+- name: Boston Scientific
+  category: neuromod
+  description: Medical devices, including Vercise deep brain stimulation and spinal cord stimulators for chronic pain.
+  website: https://www.bostonscientific.com/
+  ats: unknown  # Eightfold
+  careers_url: https://bostonscientific.eightfold.ai/careers
+  big_company: true
+
+- name: Abbott
+  category: neuromod
+  description: Healthcare company whose neuromodulation unit makes deep brain and spinal cord stimulation systems.
+  website: https://www.abbott.com/
+  ats: unknown  # Workday
+  careers_url: https://abbott.wd5.myworkdayjobs.com/abbottcareers
+  big_company: true
+
+# --- Neuro-AI labs -----------------------------------------------------------
 
 - name: Metamorphic
+  category: neuro-ai
+  description: Foundation models trained on large-scale neural recordings, from the team behind MICrONS and Neuropixels.
+  website: https://jobs.ashbyhq.com/metamorphic
   ats: ashby
   slug: metamorphic
   careers_url: https://jobs.ashbyhq.com/metamorphic
@@ -111,96 +458,107 @@
 # Convergent's Lever board. The same board also has non-neuro groups (ocean
 # carbon, formal methods...), so it's marked big_company to require a keyword.
 - name: Convergent Research
+  category: neuro-ai
+  description: Runs nonprofit research groups, including E11 Bio (brain mapping) and Arbor Neuroscience (ultrasound brain imaging, formerly Forest Neurotech).
+  website: https://www.convergentresearch.org/
+  linkedin: https://www.linkedin.com/company/convergent-research
   ats: lever
   slug: convergentresearch
   careers_url: https://www.convergentresearch.org/careers
   big_company: true
   aliases: [E11 Bio, Arbor Neuroscience, Forest Neurotech]
 
-# --- Big tech --------------------------------------------------------------
+# --- Big tech ----------------------------------------------------------------
 
 - name: Meta
+  category: big-tech
+  description: Reality Labs builds the EMG wristband neural interface for controlling AR glasses, plus brain-decoding research at FAIR.
+  website: https://about.meta.com/
+  linkedin: https://www.linkedin.com/company/meta
   ats: unknown  # metacareers.com (custom)
   careers_url: https://www.metacareers.com/
   big_company: true
   aliases: [Meta Reality Labs, Reality Labs]
 
 - name: Google DeepMind
+  category: big-tech
+  description: AI research lab with neuroscience-inspired research teams.
+  website: https://deepmind.google/
   ats: unknown  # Google's own careers site
   careers_url: https://deepmind.google/careers/
   big_company: true
   aliases: [DeepMind]
 
-# --- Institutes ------------------------------------------------------------
+# --- Institutes --------------------------------------------------------------
 
 - name: Allen Institute
+  category: institute
+  description: Nonprofit research institute that builds open brain atlases, cell types data, and large-scale neural recordings.
+  website: https://alleninstitute.org/
+  linkedin: https://www.linkedin.com/company/allen-institute
   ats: unknown  # listings load from a script on the page; job system not identified
   careers_url: https://alleninstitute.org/careers
   big_company: false
 
 - name: HHMI Janelia
+  category: institute
+  description: HHMI's research campus focused on neural circuits, imaging, and tools like Neuropixels.
+  website: https://www.janelia.org/
   ats: unknown  # Workday (hhmi.wd1.myworkdayjobs.com)
   careers_url: https://www.hhmi.org/careers/janelia
   big_company: false
   aliases: [HHMI, Howard Hughes Medical Institute, Janelia Research Campus]
 
 - name: Simons Foundation
+  category: institute
+  description: Funds and runs science research, including the Flatiron Institute's computational neuroscience center.
+  website: https://www.simonsfoundation.org/
   ats: unknown  # Workday for staff roles, Interfolio for Flatiron research roles
   careers_url: https://www.simonsfoundation.org/careers/
   big_company: true  # most roles are not neuro (astro, math, physics...)
   aliases: [Flatiron Institute]
 
 - name: Wu Tsai Neurosciences Institute
+  category: institute
+  description: Stanford's interdisciplinary neuroscience institute.
+  website: https://neuroscience.stanford.edu/
+  linkedin: https://www.linkedin.com/company/wu-tsai-neurosciences-institute
   ats: unknown  # Stanford's job site
   careers_url: https://neuroscience.stanford.edu/get-involved-wu-tsai-neuro/careers
   big_company: false
 
 - name: Mila
+  category: institute
+  description: Quebec AI institute in Montreal, with some neuro-AI research groups.
+  website: https://mila.quebec/
   ats: unknown  # Workable (apply.workable.com/mila-2)
   careers_url: https://mila.quebec/en/careers
   big_company: true  # general AI institute
 
 - name: Vector Institute
+  category: institute
+  description: Toronto AI research institute, including health and neuro applications.
+  website: https://vectorinstitute.ai/
+  linkedin: https://www.linkedin.com/company/vector-institute
   ats: unknown  # ADP Workforce Now
   careers_url: https://vectorinstitute.ai/about/careers/
   big_company: true  # general AI institute
 
 - name: University Health Network
+  category: institute
+  description: Toronto hospital network; home of the Krembil Brain Institute.
+  website: https://www.uhn.ca/
+  linkedin: https://www.linkedin.com/company/university-health-network
   ats: unknown  # SmartRecruiters (jobs.smartrecruiters.com/UniversityHealthNetwork)
   careers_url: https://jobs.smartrecruiters.com/UniversityHealthNetwork
   big_company: true  # a large hospital network; Krembil is one part of it
   aliases: [UHN, Krembil Brain Institute, Krembil Research Institute]
 
 - name: Djavad Mowafaghian Centre for Brain Health
+  category: institute
+  description: UBC's brain health research centre in Vancouver.
+  website: https://www.centreforbrainhealth.ca/
   ats: unknown  # UBC's Workday
   careers_url: https://www.centreforbrainhealth.ca/careers/
   big_company: false
   aliases: [DMCBH, Centre for Brain Health]
-
-# --- Medtech ---------------------------------------------------------------
-
-- name: Medtronic
-  ats: unknown  # Workday
-  careers_url: https://medtronic.wd1.myworkdayjobs.com/MedtronicCareers
-  big_company: true
-
-- name: Boston Scientific
-  ats: unknown  # Eightfold
-  careers_url: https://bostonscientific.eightfold.ai/careers
-  big_company: true
-
-- name: NeuroPace
-  ats: greenhouse
-  slug: neuropace
-  careers_url: https://www.neuropace.com/
-  big_company: false
-
-- name: Neuronetics
-  ats: unknown  # Rippling (ats.rippling.com/careers-neuronetics)
-  careers_url: https://neurostar.com/about-us/careers/
-  big_company: false
-
-- name: Abbott
-  ats: unknown  # Workday
-  careers_url: https://abbott.wd5.myworkdayjobs.com/abbottcareers
-  big_company: true

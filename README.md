@@ -8,6 +8,10 @@ new grad roles starting in 2027 or later, in Canada, the US, or remote. It
 sends one email per new job, with a link to the posting. If nothing new turns
 up, it sends nothing.
 
+It also keeps a small website (in `docs/`, served by GitHub Pages) with every
+matching job that's open right now, plus a page describing each company on
+the watchlist. See [Website](#website).
+
 ## How it works
 
 ```
@@ -18,7 +22,8 @@ GitHub Actions cron (2x/day)
   -> drop jobs already in state/seen.json   (notifier/state.py)
   -> send one email per remaining job       (notifier/emailer.py)
   -> add sent job IDs to seen.json
-  -> commit seen.json back to the repo
+  -> write docs/data/jobs.json and companies.json (notifier/site.py)
+  -> commit seen.json and docs/data/ back to the repo
 ```
 
 Sources so far:
@@ -142,6 +147,60 @@ handy for experiments.
 
 To run it on GitHub by hand, go to **Actions → Job notifier → Run workflow**.
 
+## Website
+
+Two static pages in `docs/`, plain HTML, CSS, and JavaScript with no build
+step. The look follows the portfolio's `feat/redesign-f` design (paper and
+ink; Kaisei Decol, Instrument Serif italic and DM Mono; hairline rows,
+numbered sections and the contour-ring figure), with a terracotta accent
+instead of violet. To try another colour, change `--accent` and `--tint` at
+the top of `docs/assets/style.css`.
+
+Both pages show when the workflow last ran and whether it passed, linking to
+that run. This comes from GitHub's public API; if it can't be reached (for
+example, the hourly limit of 60 requests per visitor), the page falls back to
+`checked_at`, the time the run itself wrote into the data files. Because
+`checked_at` changes every run, the workflow now commits twice a day even when
+no jobs change.
+
+- **Jobs** (`docs/index.html`): every job that currently passes the filters,
+  not only new ones. Sort by newest, oldest, or company; filter by company,
+  role type, or a search. Filters are kept in the URL, so
+  `?company=Neuralink&kind=internship` is a shareable link. The date shown is
+  the board's posting date, or the date the notifier first found the job when
+  the board gives none.
+- **Companies** (`docs/companies.html`): the watchlist, grouped by category
+  (invasive BCI, non-invasive BCI, neuromodulation, neuro-AI labs, big tech,
+  institutes). Each card has a one-line description, links to the website,
+  LinkedIn, and careers page, and how many roles are open. That count links to
+  the jobs page filtered to that company.
+
+Each run rewrites `docs/data/jobs.json` and `docs/data/companies.json`, and the
+workflow commits them. Closed jobs drop off. If a source fails, its jobs from
+the last run stay up. `--dry-run` doesn't touch these files.
+
+**Turning it on (once):** in the repo on GitHub, open **Settings → Pages**,
+set **Source** to *Deploy from a branch*, pick `main` and the `/docs` folder,
+and save. The site appears at `https://marlotea.github.io/neuro-job-notifier/`
+a minute later. GitHub Pages is free for public repos; a private repo needs a
+paid plan.
+
+**Viewing it locally:** browsers won't load the JSON files from `file://`, so
+serve the folder:
+
+```bash
+python3 -m http.server -d docs 8000   # then open http://localhost:8000
+```
+
+After editing `config/companies.yaml`, the company page updates on the next
+run. To refresh the data files right away without emailing anything, seed a
+throwaway copy of the state:
+
+```bash
+cp state/seen.json /tmp/seen.json
+.venv/bin/python -m notifier.main --seed --state /tmp/seen.json
+```
+
 ## What the emails look like
 
 Each job gets its own email. The subject is `[Job] {company}: {title}`. The
@@ -176,11 +235,19 @@ template is in `notifier/emailer.py`.
 3. Add an entry to `config/companies.yaml`:
    ```yaml
    - name: Example Neuro
+     category: noninvasive-bci   # section on the company page
+     description: One sentence on what they build.
+     website: https://exampleneuro.com/
+     linkedin: https://www.linkedin.com/company/exampleneuro  # optional
      ats: greenhouse
      slug: exampleneuro
      careers_url: https://exampleneuro.com/careers
      big_company: false   # true = jobs must also match a keyword
    ```
+   Categories: `invasive-bci`, `noninvasive-bci`, `neuromod`, `neuro-ai`,
+   `big-tech`, `institute`. Only add `linkedin` once you've confirmed the
+   page (the company's own site usually links it). Without it, the site links
+   to a LinkedIn search for the name.
    If the company uses something else (Workday, a custom site...), set
    `ats: unknown` and keep the `careers_url`. Its Simplify listings will still
    follow the `big_company` rule.
@@ -196,7 +263,7 @@ see what changes.
 ## Not covered yet
 
 These companies don't use Greenhouse, Lever, or Ashby, so they aren't fetched
-directly (checked 2026-10-29). Their listings can still reach you through
+directly (checked 2026-10-29, and 2026-11-24 for the BCI companies added then). Their listings can still reach you through
 Simplify. Check their careers pages yourself now
 and then.
 
@@ -211,6 +278,19 @@ and then.
 | Phantom Neuro | no careers page found | https://phantomneuro.com/ |
 | Neurable | JazzHR | https://www.neurable.com/careers |
 | Kernel | no careers page or listings found | https://kernel.com/ |
+| CorTec | own careers page (Germany) | https://www.cortec-neuro.com/careers |
+| INBRAIN Neuroelectronics | Personio (jobs in Spain) | https://inbrain-neuroelectronics.jobs.personio.com/ |
+| Diagnostic Biochips | none found | https://www.diagnosticbiochips.com/ |
+| Emotiv | none found | https://www.emotiv.com/ |
+| OpenBCI | own careers page | https://openbci.com/careers |
+| Neurosity | none found | https://neurosity.co/ |
+| Arctop | own careers page | https://www.arctop.com/careers |
+| BrainCo | own careers page | https://www.brainco.tech/careers |
+| NextSense | none found | https://www.nextsense.io/ |
+| Elemind | none found | https://elemindtech.com/ |
+| Openwater | none found | https://www.openwater.health/ |
+| Piramidal | none found | https://piramidal.ai/ |
+| ONWARD Medical | none found | https://www.onwd.com/ |
 | Cognixion | BambooHR | https://www.cognixion.com/careers |
 | InteraXon (Muse) | unknown (old Lever board removed) | https://choosemuse.com/pages/careers |
 | Ripple Neuro | Greenhouse board is linked but returns "not found" | https://rippleneuro.com/careers-at-ripple/ |
@@ -240,6 +320,11 @@ and then.
 - **Motif Neurotech:** its Greenhouse board works, but it had no jobs and its
   site says it isn't hiring right now. It stays on the watchlist so new
   postings get picked up.
+- **Merge Labs:** its Ashby slug is `Merge Labs`, with a space. `merge` is a
+  different company (Merge, the API startup).
+- **Same-name traps found on 2026-11-24:** `ashby/kernel` (a London company),
+  `ashby/brainco` (an AI company), and `greenhouse/setpoint` (a finance
+  company) are not the neuro companies.
 - **Kernel:** still operating (brain-health measurement), but no careers page
   or job listings were found.
 

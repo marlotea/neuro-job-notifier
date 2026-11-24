@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neuro Jobs</title>
+  <meta name="description" content="Early-career neurotech, BCI and neuro-ML roles in Canada, the US and remote.">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Kaisei+Decol:wght@400;500&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="jobs">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="./" class="wordmark" aria-label="Neuro jobs, home">nj.</a>
+      <nav aria-label="Pages">
+        <a class="nav-link" href="./" aria-current="page">Jobs</a>
+        <a class="nav-link" href="companies.html">Companies</a>
+        <a class="nav-link external" href="https://github.com/marlotea/neuro-job-notifier" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page">
+    <div class="layout">
+      <aside class="intro">
+        <div class="intro-sticky">
+          <div class="figure" id="figure"></div>
+          <h1>Neuro jobs</h1>
+          <p>Early-career roles in <strong>neurotech, BCI and neuro-ML</strong>: internships, co-ops and new grad, in Canada, the US or remote.</p>
+          <p class="run-status" id="run-status" aria-live="polite"></p>
+          <div class="filters">
+            <input class="field" id="search" type="search" placeholder="search title, company, location" aria-label="Search jobs">
+            <div class="row">
+              <select class="field" id="company" aria-label="Filter by company"><option value="">all companies</option></select>
+              <select class="field" id="sort" aria-label="Sort">
+                <option value="newest">newest first</option>
+                <option value="oldest">oldest first</option>
+                <option value="company">company a–z</option>
+              </select>
+            </div>
+            <div class="pills" id="kinds" role="group" aria-label="Role type">
+              <button class="pill" type="button" data-kind="" aria-pressed="true">all roles</button>
+              <button class="pill" type="button" data-kind="internship" aria-pressed="false">internship / co-op</button>
+              <button class="pill" type="button" data-kind="new_grad" aria-pressed="false">new grad</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div class="content">
+        <section class="section" aria-labelledby="roles-title">
+          <div class="section-head">
+            <span class="num serif-italic" aria-hidden="true">01</span>
+            <h2 id="roles-title">Open roles</h2>
+            <span class="section-rule" aria-hidden="true"></span>
+            <span class="tally" id="tally"></span>
+          </div>
+          <ul class="rows" id="jobs"></ul>
+        </section>
+      </div>
+    </div>
+    <footer>
+      <span>Listings from company job boards and <a href="https://github.com/SimplifyJobs" target="_blank" rel="noopener noreferrer">SimplifyJobs</a>, checked twice a day.</span>
+      <span>Missing a company? <a href="https://github.com/marlotea/neuro-job-notifier/blob/main/config/companies.yaml" target="_blank" rel="noopener noreferrer">config/companies.yaml</a></span>
+    </footer>
+  </main>
+  <script src="assets/app.js"></script>
+</body>
+</html>
