@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-24T23:49:11+00:00",
+  "checked_at": "2026-11-25T06:08:20+00:00",
   "categories": [
     {
       "id": "invasive-bci",
@@ -35,7 +35,7 @@
       "linkedin": "https://www.linkedin.com/company/neuralink",
       "careers_url": "https://neuralink.com/careers/",
       "tracked": true,
-      "open_jobs": 20
+      "open_jobs": 21
     },
     {
       "name": "Synchron",
